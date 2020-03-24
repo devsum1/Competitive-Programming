@@ -1,7 +1,6 @@
 package test;
-import java.util.*;
-import java.io.*;
-import java.math.BigInteger;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 class ZeroInFact{
 	public static void main(String[] args) throws java.lang.Exception {
@@ -10,15 +9,13 @@ class ZeroInFact{
 		int t = Integer.parseInt(bf.readLine());
 	
 		while(t-- > 0) {
-			String line = "12232";
-			String split[] = line.split(" ");
-			int n = Integer.parseInt(line);
-			int j,i = 5,count = 0;
-			while(i<=n){
-	            count+=n/i;
-	            i*=5;
+			int n = Integer.parseInt(bf.readLine());
+			int j, i = 5, count = 0;
+			while (i <= n) {
+				count += n / i;
+				i *= 5;
 			}
-			System.out.println(count);				       
+			System.out.println(count);
 		}   				    	
 	}			 
 }
