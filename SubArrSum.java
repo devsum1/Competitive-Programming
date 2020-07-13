@@ -1,9 +1,7 @@
-package test;
-
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class AtCoder3 {
+public class SubArrSum {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -33,27 +31,31 @@ public class AtCoder3 {
 		int T = nextInt();
 		while (T-- > 0) {
 
-			while (T-- > 0) {
-				int n = nextInt();
-				int arr[] = nextArr();
+			int input[] = nextArr();
+			int n = input[0];
+			int k = input[1];
+			int arr[] = nextArr();
+			int i = 0;
+			int j = 0;
+			int sum = arr[j];
+			Boolean flag = false;
 
-				for (int i = 0; i < n; i++)
-					arr[i] = nextInt();
-
-				int currmax = 0, max = Integer.MIN_VALUE;
-
-				for (int i = 0; i < arr.length; i++) {
-
-					currmax += arr[i];
-					max = Math.max(max, currmax);
-					if (currmax <= 0)
-						currmax = 0;
-
+			while (i <= j && j < n) {
+				if (sum < k) {
+					if (j >= n - 1)
+						break;
+					sum += arr[++j];
+				} else if (sum > k) {
+					sum -= arr[i++];
+				} else {
+					flag = true;
+					break;
 				}
-				System.out.println(max);
-		}
 
+			}
+			System.out.println(flag ? (i + 1) + " " + (j + 1) : -1);
+
+		}
 	}
-}
 
 }

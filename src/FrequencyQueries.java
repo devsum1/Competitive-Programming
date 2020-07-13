@@ -1,10 +1,9 @@
-package test;
+package src;
 
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+public class FrequencyQueries {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -54,47 +53,61 @@ public class AtCoder2 {
 
 	public static void printArr(int arr[]) {
 		for (int i = 0; i < arr.length; i++)
-			System.out.print(arr[i] + " ");
+			System.out.print(arr);
 	}
 
 	public static void main(String[] args) throws IOException {
 
 		int T = 1;
-		T = nextInt();
+
 		while (T-- > 0) {
 
 			int n = nextInt();
+			StringBuilder answer = new StringBuilder();
+			HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
 
-			int arr[] = nextArr();
-
-			int aux[] = new int[100003];
-
-			long sum = 0;
-			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
-
+			int query[][] = new int[n][2];
+			for (int i = 0; i < n; i++) {
+				int arr[] = nextArr();
+				for (int j = 0; j < arr.length; j++) {
+					query[i][j] = arr[j];
+				}
 			}
+			for (int i = 0; i < n; i++) {
 
-			int q = nextInt();
+				int move = query[i][0];
+				int elem = query[i][1];
 
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
+				if (move == 1) {
+					if (!hash.containsKey(elem))
+						hash.put(elem, 1);
+					else
+						hash.put(elem, hash.get(elem) + 1);
 
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
+				} else if (move == 2) {
+					if (hash.containsKey(elem)) {
+						if (hash.get(elem) == 1)
+							hash.remove(elem);
+						else
+						hash.put(elem, hash.get(elem) - 1);
+					}
+				} else {
+					Boolean found = false;
+
+					for (int j : hash.values()) {
+						if (j == elem) {
+							found = true;
+							break;
+						}
+					}
+					answer.append(found ? "1" : "0");
+					answer.append("\n");
+				}
+				System.out.println(hash);
 			}
-
+			
+			System.out.println(answer);
 		}
 	}
-
 
 }

@@ -1,10 +1,7 @@
-package test;
-
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+public class hr {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -54,7 +51,7 @@ public class AtCoder2 {
 
 	public static void printArr(int arr[]) {
 		for (int i = 0; i < arr.length; i++)
-			System.out.print(arr[i] + " ");
+			System.out.print(arr);
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -64,37 +61,46 @@ public class AtCoder2 {
 		while (T-- > 0) {
 
 			int n = nextInt();
+			StringBuilder ans = new StringBuilder();
+			ArrayList<Integer> arr1 = new ArrayList<Integer>();
+			ArrayList<Integer> arr2 = new ArrayList<Integer>();
+			String arr[] = new String[n];
+			for (int i = 0; i < n; i++) {
+				arr[i] = next();
+			}
+			int m = nextInt();
+			int val[] = new int[m];
 
-			int arr[] = nextArr();
+			for (int i = 0; i < arr.length; i++)
+				val[i] = nextInt();
 
-			int aux[] = new int[100003];
-
-			long sum = 0;
 			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
+				int count = 0;
+				int count1 = 0;
+				for (int j = 0; j < arr[i].length(); j++) {
+					if (arr[i].charAt(j) == '>')
+						arr1.add(j);
+					else
+						arr2.add(j);
 
+				}
+
+				Collections.sort(arr1);
+				Collections.sort(arr2);
+				System.out.println(arr1);
+				System.out.println(arr2);
+				if (count < count1)
+					ans.append(0);
+				else if (count - count1 <= val[i])
+					ans.append(1);
+				else
+					ans.append(0);
+				ans.append("\n");
 			}
 
-			int q = nextInt();
-
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
-
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
-			}
+			System.out.println(ans);
 
 		}
 	}
-
 
 }

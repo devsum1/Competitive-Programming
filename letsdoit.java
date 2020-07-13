@@ -30,26 +30,26 @@ public class letsdoit {
 
 	public static void main(String[] args) throws IOException {
 
-		int T = nextInt();
-		while (T-- > 0) {
-			int arr[] = nextArr();
-			int h = arr[0];
-			int n = arr[1];
-			int m = arr[2];
-			boolean isDie = false;
-			if (h - m * 10 <= 0) {
-				System.out.println("YES");
-			} else {
-			
-				h = (h / (int)Math.pow(2,n)) + 10*n;
-				if (h <= 10 * m) {
-					isDie = true;
-					break;
+		int n = nextInt();
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		ArrayList<Integer> b = new ArrayList<Integer>();
 
-			}
-			System.out.println(isDie ? "YES" : "NO");
-			}
-		}
+		for (int i = 0; i < n; i++)
+			a.add(nextInt());
+
+		int m = nextInt();
+
+		for (int i = 0; i < m; i++)
+			b.add(nextInt());
+		Collections.sort(a);
+		Collections.sort(b);
+
+		long ans = 0;
+		for (int i = 0; i < a.size(); i++)
+			ans += Math.abs(b.get(i) - a.get(i));
+
+		System.out.println(ans);
+
 	}
 
 }

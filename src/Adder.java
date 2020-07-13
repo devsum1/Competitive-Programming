@@ -1,10 +1,9 @@
-package test;
+package test.src;
 
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+public class Adder {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -54,7 +53,7 @@ public class AtCoder2 {
 
 	public static void printArr(int arr[]) {
 		for (int i = 0; i < arr.length; i++)
-			System.out.print(arr[i] + " ");
+			System.out.print(arr);
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -64,37 +63,35 @@ public class AtCoder2 {
 		while (T-- > 0) {
 
 			int n = nextInt();
-
 			int arr[] = nextArr();
+			int ans = 0;
+			Boolean isPossible = true;
 
-			int aux[] = new int[100003];
+			s: for (int i = arr.length - 1; i >= 0;) {
+				if (i + 1 != arr[i]) {
 
-			long sum = 0;
-			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
+					Boolean find = false;
+					for (int j = i - 2; j <= i; j++) {
 
+						if (j < 0)
+							continue;
+
+						if (i + 1 == arr[j]) {
+							find = true;
+							ans += i - j;
+							i = j - 1;
+							break;
+						}
+
+					}
+					if (!find) {
+						isPossible = false;
+						break s;
+					}
+				}
 			}
-
-			int q = nextInt();
-
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
-
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
-			}
-
+			System.out.println(isPossible ? ans : "Too chaotic");
 		}
 	}
-
 
 }

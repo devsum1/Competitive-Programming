@@ -1,9 +1,7 @@
-package test;
-
 import java.io.*;
 import java.util.*;
 
-public class AtCoder3 {
+public class EvenMatrix {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -33,27 +31,25 @@ public class AtCoder3 {
 		int T = nextInt();
 		while (T-- > 0) {
 
-			while (T-- > 0) {
-				int n = nextInt();
-				int arr[] = nextArr();
+			int n = nextInt();
+			StringBuffer ans = new StringBuffer();
+			int curr = 0;
 
-				for (int i = 0; i < n; i++)
-					arr[i] = nextInt();
-
-				int currmax = 0, max = Integer.MIN_VALUE;
-
-				for (int i = 0; i < arr.length; i++) {
-
-					currmax += arr[i];
-					max = Math.max(max, currmax);
-					if (currmax <= 0)
-						currmax = 0;
+			for (int i = 0; i < n; i++) {
+				StringBuffer gen = new StringBuffer();
+				if (i % 2 == 0) {
+					for (int j = curr + 1; j <= curr + n; j++)
+						gen.append(j + " ");
+				} else {
+					for (int j = curr + n; j > curr; j--)
+						gen.append(j + " ");
 
 				}
-				System.out.println(max);
+				curr += n;
+				ans.append(gen + "\n");
+			}
+			System.out.println(ans);
 		}
-
 	}
-}
 
 }

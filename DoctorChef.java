@@ -1,10 +1,7 @@
-package test;
-
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+public class DoctorChef {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -54,7 +51,7 @@ public class AtCoder2 {
 
 	public static void printArr(int arr[]) {
 		for (int i = 0; i < arr.length; i++)
-			System.out.print(arr[i] + " ");
+			System.out.print(arr);
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -63,38 +60,38 @@ public class AtCoder2 {
 		T = nextInt();
 		while (T-- > 0) {
 
-			int n = nextInt();
-
 			int arr[] = nextArr();
+			int n = arr[0];
+			int x = arr[1];
 
-			int aux[] = new int[100003];
+			int country[] = nextArr();
+		
+			Arrays.sort(country);
 
-			long sum = 0;
-			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
+			int i = 0;
+			int ans = 0;
 
+			while (i < country.length) {
+				if (country[i] < x) {
+					if (country[i] * 2 >= x)
+						x = country[i] * 2;
+					ans++;
+					i++;
+				} else {
+					while (x < country[i]) {
+//						System.out.println(x);
+						x = x * 2;
+						ans++;
+					}
+					x = Math.min(country[i], x) * 2;
+					i++;
+					ans++;
+				}
+//				System.out.println(x);
 			}
-
-			int q = nextInt();
-
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
-
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
-			}
+			System.out.println(ans);
 
 		}
 	}
-
 
 }

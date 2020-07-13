@@ -1,10 +1,7 @@
-package test;
-
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+public class Misspoint {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -54,7 +51,7 @@ public class AtCoder2 {
 
 	public static void printArr(int arr[]) {
 		for (int i = 0; i < arr.length; i++)
-			System.out.print(arr[i] + " ");
+			System.out.print(arr);
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -64,37 +61,44 @@ public class AtCoder2 {
 		while (T-- > 0) {
 
 			int n = nextInt();
+			HashMap<Integer, Integer> rowhash = new HashMap<Integer, Integer>();
+			HashMap<Integer, Integer> colhash = new HashMap<Integer, Integer>();
+			for (int i = 0; i < 4 * n - 1; i++) {
+				int arr[] = nextArr();
+				int row = arr[0];
+				int col = arr[1];
 
-			int arr[] = nextArr();
+				if (colhash.containsKey(col))
+					colhash.put(col, colhash.get(col) + 1);
+				else
+					colhash.put(col, 1);
 
-			int aux[] = new int[100003];
+				if (rowhash.containsKey(row))
+					rowhash.put(row, rowhash.get(row) + 1);
+				else
+					rowhash.put(row, 1);
 
-			long sum = 0;
-			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
+			}
+			int missrow = -1;
+			int misscol = -1;
+			for (int i : rowhash.keySet()) {
+				if (rowhash.get(i) % 2 != 0) {
+					missrow = i;
+					break;
+				}
 
 			}
 
-			int q = nextInt();
+			for (int i : colhash.keySet()) {
+				if (colhash.get(i) % 2 != 0) {
+					misscol = i;
+					break;
+				}
 
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
-
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
 			}
+			System.out.println(missrow + " " + misscol);
 
 		}
 	}
-
 
 }

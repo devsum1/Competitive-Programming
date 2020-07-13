@@ -1,10 +1,7 @@
-package test;
-
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+public class CountTriplets {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -54,47 +51,72 @@ public class AtCoder2 {
 
 	public static void printArr(int arr[]) {
 		for (int i = 0; i < arr.length; i++)
-			System.out.print(arr[i] + " ");
+			System.out.print(arr);
 	}
 
 	public static void main(String[] args) throws IOException {
 
 		int T = 1;
+
 		T = nextInt();
 		while (T-- > 0) {
 
-			int n = nextInt();
-
+			int input[] = nextArr();
+			int n = input[0];
+			int r = input[1];
+			int test[] = new int[n];
+			StringBuilder str = new StringBuilder("");
+//			for (int i = 0; i < n; i++) {
+//				test[i] = 1;
+//			}
 			int arr[] = nextArr();
+			
+			HashMap<Integer, ArrayList<Integer>> hash = new HashMap<Integer, ArrayList<Integer>>();
 
-			int aux[] = new int[100003];
-
-			long sum = 0;
 			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
+				if (!hash.containsKey(arr[i])) {
+					hash.put(arr[i], new ArrayList<Integer>());
+				}
+
+				hash.get(arr[i]).add(i);
+
+			}
+			System.out.println(hash);
+
+			long ans = 0;
+
+			for (int i = 0; i < arr.length; i++) {
+				if (arr[i] % r != 0)
+					continue;
+				int a = arr[i] / r;
+				int b = arr[i] * r;
+				int pre = 0;
+				int post = 0;
+
+				if (hash.containsKey(a) && hash.containsKey(b)) {
+					for (int k = hash.get(a).size() - 1; k >= 0; k--) {
+						if (hash.get(a).get(k) < i) {
+							pre += k + 1;
+							break;
+						}
+					}
+					for (int l = 0; l < hash.get(b).size(); l++) {
+						if (hash.get(b).get(l) > i) {
+							post += hash.get(b).size() - l;
+							break;
+						}
+					}
+
+					ans += (long) pre * post;
+					BufferedWriter out = new BufferedWriter(new FileWriter("outfilename"));
+					out.write(ans);
+					out.close();
+				}
 
 			}
 
-			int q = nextInt();
-
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
-
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
-			}
-
+			System.out.println(ans);
 		}
 	}
-
 
 }

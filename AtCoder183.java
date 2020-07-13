@@ -3,8 +3,7 @@ package test;
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+public class AtCoder183 {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -52,7 +51,7 @@ public class AtCoder2 {
 		return arr;
 	}
 
-	public static void printArr(int arr[]) {
+	public static void printArr(char arr[]) {
 		for (int i = 0; i < arr.length; i++)
 			System.out.print(arr[i] + " ");
 	}
@@ -61,40 +60,25 @@ public class AtCoder2 {
 
 		int T = 1;
 		T = nextInt();
+
+		char arr[] = new char[27];
+		for (int i = 1; i < arr.length; i++)
+			arr[i] = (char) (96 + i);
+
+
+
 		while (T-- > 0) {
+			long n = Long.parseLong(next());
+			
+			String s = "";
 
-			int n = nextInt();
-
-			int arr[] = nextArr();
-
-			int aux[] = new int[100003];
-
-			long sum = 0;
-			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
-
+			while (n > 0) {
+				n -= 1;
+				s += (char) (97 + n % 26);
+				n = n / 26;
 			}
-
-			int q = nextInt();
-
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
-
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
-			}
-
+			System.out.println(new StringBuilder(s).reverse());
 		}
 	}
-
 
 }

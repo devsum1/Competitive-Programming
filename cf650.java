@@ -1,10 +1,7 @@
-package test;
-
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+public class cf650 {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -52,49 +49,45 @@ public class AtCoder2 {
 		return arr;
 	}
 
-	public static void printArr(int arr[]) {
+	public static void printArr(long arr[], String s) {
 		for (int i = 0; i < arr.length; i++)
-			System.out.print(arr[i] + " ");
+			System.out.print(arr[i] + s);
 	}
 
+	  public static long[] randomArr(int n) {
+	      Random rd = new Random(); // creating Random object
+	      long[] arr = new long[n];
+	      for (int i = 0; i < arr.length; i++) {
+	         arr[i] = rd.nextInt(); // storing random integers in an array
+	         System.out.println(arr[i]); // printing each array element
+	      }
+	      return arr;
+	   }
 	public static void main(String[] args) throws IOException {
 
 		int T = 1;
-		T = nextInt();
+
 		while (T-- > 0) {
-
 			int n = nextInt();
-
-			int arr[] = nextArr();
-
-			int aux[] = new int[100003];
-
-			long sum = 0;
+			long arr[] = new long[n];
+			String input[] = next().split(" ");
 			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
-
+				arr[i] = Long.parseLong(input[i]);
 			}
 
-			int q = nextInt();
+			long max = 0;
 
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
 
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
+			for (int i = 0; i < arr.length; i++) {
+				long res = max + arr[i];
+				max = Math.max(max, res);
+				arr[i] = res;
+
 			}
+			printArr(arr, " ");
+
 
 		}
 	}
-
 
 }

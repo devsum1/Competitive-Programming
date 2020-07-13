@@ -1,10 +1,7 @@
-package test;
-
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+class chefGuitar {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -54,7 +51,7 @@ public class AtCoder2 {
 
 	public static void printArr(int arr[]) {
 		for (int i = 0; i < arr.length; i++)
-			System.out.print(arr[i] + " ");
+			System.out.print(arr);
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -64,37 +61,14 @@ public class AtCoder2 {
 		while (T-- > 0) {
 
 			int n = nextInt();
-
 			int arr[] = nextArr();
 
-			int aux[] = new int[100003];
-
-			long sum = 0;
-			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
-
-			}
-
-			int q = nextInt();
-
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
-
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
-			}
+			long ans = 0;
+			for (int i = 0; i < arr.length - 1; i++)
+				ans += Math.abs(arr[i] - arr[i + 1]) - 1;
+			System.out.println(ans);
 
 		}
 	}
-
 
 }

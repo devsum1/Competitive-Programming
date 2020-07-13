@@ -1,10 +1,7 @@
-package test;
-
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+public class adaking {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -54,7 +51,7 @@ public class AtCoder2 {
 
 	public static void printArr(int arr[]) {
 		for (int i = 0; i < arr.length; i++)
-			System.out.print(arr[i] + " ");
+			System.out.print(arr);
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -62,39 +59,28 @@ public class AtCoder2 {
 		int T = 1;
 		T = nextInt();
 		while (T-- > 0) {
+			String chess[][] = new String[8][8];
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++)
+					chess[i][j] = "X";
+			}
 
 			int n = nextInt();
+			int counter = 0;
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
 
-			int arr[] = nextArr();
-
-			int aux[] = new int[100003];
-
-			long sum = 0;
-			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
+					if (counter++ < n)
+						System.out.print(i == 0 && j == 0 ? "O" : ".");
+					else
+						System.out.print(chess[i][j]);
+				}
+				System.out.println();
 
 			}
-
-			int q = nextInt();
-
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
-
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
-			}
+			System.out.println();
 
 		}
 	}
-
 
 }

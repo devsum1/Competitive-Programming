@@ -3,8 +3,7 @@ package test;
 import java.io.*;
 import java.util.*;
 
-public class AtCoder2 {
-
+public class MinSwaps {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -55,6 +54,15 @@ public class AtCoder2 {
 	public static void printArr(int arr[]) {
 		for (int i = 0; i < arr.length; i++)
 			System.out.print(arr[i] + " ");
+		System.out.println();
+	}
+
+	public static int[] swap(int z[], int i, int j) {
+		int temp = z[i];
+		z[i] = z[j];
+		z[j] = temp;
+
+		return z;
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -64,37 +72,28 @@ public class AtCoder2 {
 		while (T-- > 0) {
 
 			int n = nextInt();
-
 			int arr[] = nextArr();
+			int aux[] = new int[n + 1];
+			int count = 0;
 
-			int aux[] = new int[100003];
+			for (int i = 0; i < arr.length; i++)
+				aux[arr[i]] = i;
 
-			long sum = 0;
 			for (int i = 0; i < arr.length; i++) {
-				sum += arr[i];
-				aux[arr[i]]++;
+				if (i + 1 != arr[i]) {
+					int temp = arr[i];
+					arr = swap(arr, i, aux[i + 1]);
+					aux = swap(aux, i + 1, temp);
+					++count;
+					printArr(arr);
+				}
 
 			}
 
-			int q = nextInt();
 
-			for (int i = 0; i < q; i++) {
-				int input[] = nextArr();
-				int c = input[0];
-				int d = input[1];
-				long m = (long) d * aux[c];
-				long o = (long) c * aux[c];
-
-				sum += m - o;
-				
-				aux[d] += aux[c];
-				aux[c] = 0;
-				
-				System.out.println(sum);
-			}
+			System.out.println(count);
 
 		}
 	}
-
 
 }

@@ -1,9 +1,8 @@
-package test;
-
-import java.io.*;
 import java.util.*;
+import java.io.*;
+import java.math.BigInteger;
 
-public class AtCoder3 {
+public class hwi2 {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -32,28 +31,24 @@ public class AtCoder3 {
 
 		int T = nextInt();
 		while (T-- > 0) {
+			int n = nextInt();
+			long aspeed = 0;
+			long bspeed = 0;
+			long ans = 0;
+			
+			int arr[] = nextArr();
+			int brr[] = nextArr();
 
-			while (T-- > 0) {
-				int n = nextInt();
-				int arr[] = nextArr();
+			for (int i = 0; i < arr.length; i++) {
+				aspeed += arr[i];
+				bspeed += brr[i];
+				if (aspeed == bspeed && arr[i] == brr[i])
+					ans += arr[i];
+			
+			}
+			System.out.println(ans);
 
-				for (int i = 0; i < n; i++)
-					arr[i] = nextInt();
-
-				int currmax = 0, max = Integer.MIN_VALUE;
-
-				for (int i = 0; i < arr.length; i++) {
-
-					currmax += arr[i];
-					max = Math.max(max, currmax);
-					if (currmax <= 0)
-						currmax = 0;
-
-				}
-				System.out.println(max);
 		}
-
 	}
-}
 
 }
