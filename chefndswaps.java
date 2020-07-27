@@ -77,7 +77,7 @@ public class chefndswaps {
 
 		int T = 1;
 		T = nextInt();
-		StringBuilder ans = new StringBuilder();
+
 		s: while (T-- > 0) {
 			
 			int n = nextInt();
@@ -85,66 +85,56 @@ public class chefndswaps {
 			int arr[] = nextArr();
 			int brr[] = nextArr();
 
-			TreeMap<Integer, Integer> hash = new TreeMap<Integer, Integer>();
-			TreeMap<Integer, Integer> hash1 = new TreeMap<Integer, Integer>();
+			TreeMap<Integer, Integer> a = new TreeMap<Integer, Integer>();
+			TreeMap<Integer, Integer> b = new TreeMap<Integer, Integer>();
+			HashSet<Integer> u = new HashSet<Integer>();
+			ArrayList<Integer> notbalanced = new ArrayList<Integer>();
 
+			long ans = 0;
+
+			int min = Integer.MAX_VALUE;
 			for (int i = 0; i < arr.length; i++) {
-				if (hash.containsKey(arr[i])) {
-					hash.put(arr[i], hash.get(arr[i]) + 1);
-					hash1.put(arr[i], hash.get(arr[i]) + 1);
-				} else {
-					hash.put(arr[i], 1);
-					hash1.put(arr[i], 1);
-				}
-
-				if (hash.containsKey(brr[i]))
-					hash.put(brr[i], hash.get(brr[i]) - 1);
+				if (a.containsKey(arr[i]))
+					a.put(arr[i], a.get(arr[i]) + 1);
 				else
-					hash.put(brr[i], -1);
+					a.put(arr[i], 1);
+
+				if (b.containsKey(brr[i]))
+					b.put(brr[i], b.get(brr[i]) + 1);
+				else
+					b.put(brr[i], 1);
+
+				min = Math.min(min, Math.min(arr[i], brr[i]));
+				u.add(arr[i]);
+				u.add(brr[i]);
 			}
 
-			int replacement = 0;
-			long bigans = 0;
+			for (int i : u) {
+				int occurinFirst = 0;
+				int occurinSecond = 0;
 
-			for (int i : hash.values()) {
-				// For odd number of element ocurrence
-				i = Math.abs(i);
-				if (i % 2 != 0) {
+				if (a.containsKey(i))
+					occurinFirst = a.get(i);
+
+				if (b.containsKey(i))
+					occurinSecond = b.get(i);
+
+				if (Math.abs((occurinFirst + occurinSecond)) % 2 != 0) {
 					System.out.println(-1);
-					ans.append(-1 + "\n");
 					continue s;
 				}
-				replacement += i;
-			}
-			// For equal number of element ocurrence
 
-			if (replacement == 0) {
-				System.out.println(0);
-				ans.append(0 + "\n");
-				continue;
-			} else {
-				replacement /= 4;
-				int possible = Collections.min(hash.keySet());
+				long occurence = Math.abs((occurinFirst - occurinSecond)) / 2;
 
-				for (int j : hash.keySet()) {
-
-					if (replacement <= 0)
-						break;
-
-					if (Math.abs(hash.get(j)) == 0)
-						continue;
-
-					int minchoice = Math.min(replacement, Math.abs(hash.get(j)) / 2);
-
-					bigans += Math.min((long) minchoice * j, (long) possible * 2);
-					replacement -= minchoice;
-
-				}
-				System.out.println(bigans);
-				ans.append(bigans + "\n");
+				for (int j = 0; j < occurence; j++)
+					notbalanced.add(i);
 
 			}
 
+			for (int i = 0; i < notbalanced.size() / 2; i++)
+				ans += Math.min(notbalanced.get(i), min * 2);
+
+			System.out.println(ans);
 
 		}
 
